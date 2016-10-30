@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.js"></script>
+  <script>
+
+
+  var updateTime = function() {
+    var target = moment('2017-01-01 00:00:00');
+    var now = moment();
+    
+    if (now.isSameOrAfter(target)) {
+      if (interval) {
+        clearInterval(interval);
+      }
+      document.body.innerHTML = "<h1>Happy New Year!</h1>";
+    } else {
+      var secondsTill = target.diff(now, 'seconds');
+      var hours = target.diff(now, 'hours');
+      var minutes = Math.floor((secondsTill / 60) % 60);
+      var seconds = secondsTill % 60;
+
+      var h = document.getElementById("hours");
+      h.innerHTML = hours;
+      var m = document.getElementById("minutes");
+      m.innerHTML = minutes;
+      var s = document.getElementById("seconds");
+      s.innerHTML = seconds;
+    }
+  };
+  var interval;
+  window.onload = function() {
+    updateTime();
+    interval = setInterval(updateTime, 1000);
+  };
+  </script>
+  <style>
+  #timer {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    width:90%;
+    justify-content: space-between;
+  }
+  .container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction:column;
+  }
+  .title {
+    justify-content: center;
+    text-align: center;
+  }
+  .item {
+    display: flex;
+    flex-direction: column;
+    list-style:none;
+    justify-content: center;
+  }
+  .counter {
+    text-align: center;
+    font-size:180px;
+  }
+  .description {
+    text-align: center;
+    font-size:40px; 
+  }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="title">
+    <h1>Countdown</h1>
+  </div>
+  <div>
+    <ul id="timer">
+      <li>
+        <ul class="item">
+          <li class="counter" id="hours">00</li>
+          <li class="description">hours</li>
+        </ul>
+      </li>
+      <li class="counter">:</li>
+      <li>
+        <ul class="item">
+          <li class="counter" id="minutes">00</li>
+          <li class="description">minutes</li>
+        </ul>
+      </li>
+      <li class="counter">:</li>
+      <li>
+        <ul class="item">
+          <li class="counter" id="seconds">00</li>
+          <li class="description">seconds</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+</body>
+</html>
